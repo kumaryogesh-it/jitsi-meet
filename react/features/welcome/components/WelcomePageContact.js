@@ -28,7 +28,7 @@ export default class WelcomePageContact extends React.Component {
     e.preventDefault();
     axios({
       method: 'post',
-      url: `http://localhost:1992/react-contact-form/api/contact/index.php`,
+      url: `http://app.test/php/react.php`,
       headers: { 'content-type': 'application/json' },
       data: this.state
     }).then(result => {
@@ -54,8 +54,10 @@ export default class WelcomePageContact extends React.Component {
 
               <form action="/action_page.php">
                 <label>Name: </label>
-                  <input type="text" required id="name" name="name" placeholder="Your name.." value={this.state.name}
+                  <div class="enter-room-input-container">
+                    <input class="enter-room-input" type="text" required id="name" name="name" placeholder="Your name.." value={this.state.name}
                     onChange={e => this.setState({ name: e.target.value })} /> <br /><br />
+                  </div>
                 <label>Email:</label>
                   <input type="email" id="email" name="email" placeholder="Your email.." value={this.state.email}
                     onChange={e => this.setState({ email: e.target.value })} /> <br /><br />
