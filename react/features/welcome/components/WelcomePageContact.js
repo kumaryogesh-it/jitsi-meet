@@ -109,11 +109,26 @@ export default class WelcomePageContact extends React.Component {
     open = () => this.setState({ isOpen: true });
 
     close = () => this.setState({ isOpen: false });
+
+    onSubmitForm = (e) => {
+        e.preventDefault();
+        
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(this.state)
+          };
+          fetch('http://app.test/php/react.php', requestOptions)
+            .then(response => response.json())
+            .then(data => this.setState({ postId: data.id }));
+  
+    }
+
     //Check for existing alternative of axios API.
     handleFormSubmit = (e) => {
         e.preventDefault();
         this.close();
-
+        alert('Hello World');
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -123,6 +138,7 @@ export default class WelcomePageContact extends React.Component {
           .then(response => response.json())
           .then(data => this.setState({ postId: data.id }));
 
+        
         // axios({
         //     method: "post",
         //     url: `http://app.test/php/react.php`,
@@ -176,7 +192,7 @@ export default class WelcomePageContact extends React.Component {
                             heading="Contact Us"
                         >
                             <form
-                                action="/action_page.php"
+                                onSubmit={this.onSubmitForm}
                                 style={{
                                     display: "flex",
                                     flexDirection: "column",
@@ -201,6 +217,7 @@ export default class WelcomePageContact extends React.Component {
                                 <input
                                     style={inputStyle}
                                     type="email"
+                                    required
                                     id="email"
                                     name="email"
                                     placeholder="Your email.."
@@ -240,6 +257,8 @@ export default class WelcomePageContact extends React.Component {
                                         })
                                     }
                                 ></textarea>
+                                <button type="submit">Submit</button>
+
                             </form>
 
                             <div>
